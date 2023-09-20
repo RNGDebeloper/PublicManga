@@ -14,7 +14,6 @@ class MintMangaClient(MangaClient):
 
     base_url = urlparse('https://mintmanga.live/')
     search_url = urljoin(base_url.geturl(), '/search/suggestion')
-    img_url = urlparse('https://one-way.work/')
     search_param = 'query'
 
     pre_headers = {
@@ -69,9 +68,9 @@ class MintMangaClient(MangaClient):
         return urls
 
     async def pictures_from_chapters(self, content: bytes, response: ClientResponse = None):
-        regex = rb"(auto\/\d{2}\/\d{2}\/\d{2}\/[_\-\.\w\d]*\.(jpg|png|jpeg))"
+        regex = rb"(https:\/\/[_\-\.\w\d]*\/)','',\"(auto\/\d{2}\/\d{2}\/\d{2}\/[_\-\.\w\d]*\.(jpg|png|jpeg))"
 
-        images = [a[0].decode() for a in re.findall(regex, content)]
+        images = [urljoin(a[0].decode(), a[1].decode()) for a in re.findall(regex, content)]
 
         images_url = [urljoin(self.img_url.geturl(), img) for img in images]
 

@@ -70,9 +70,7 @@ class MintMangaClient(MangaClient):
     async def pictures_from_chapters(self, content: bytes, response: ClientResponse = None):
         regex = rb"(https:\/\/[_\-\.\w\d]*\/)','',\"(auto\/\d{2}\/\d{2}\/\d{2}\/[_\-\.\w\d]*\.(jpg|png|jpeg))"
 
-        images = [urljoin(a[0].decode(), a[1].decode()) for a in re.findall(regex, content)]
-
-        images_url = [urljoin(self.img_url.geturl(), img) for img in images]
+        images_url = [urljoin(a[0].decode(), a[1].decode()) for a in re.findall(regex, content)]
 
         return images_url
 

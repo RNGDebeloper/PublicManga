@@ -13,6 +13,6 @@ async def img2tph(manga_chapter: MangaChapter, name: str):
     content = '\n'.join(lines)
 
     client = Telegraph()
-    await client.create_account('Alpha')
-    page = await client.create_page(name, author_name='AlphaBot', author_url='https://t.me/idkpythonbot', html_content=content)
+    await client.create_account('MangaReader')
+    page = await client.create_page(name, author_name='MangaReader', author_url='https://t.me/tg_manga_reader_bot', html_content=content)
     return page['url']

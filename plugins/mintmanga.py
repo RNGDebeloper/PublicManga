@@ -60,7 +60,7 @@ class MintMangaClient(MangaClient):
 
             manga_url = urljoin(self.base_url.geturl(), manga_item.find_next('div', {'class': 'desc'}).findNext('a').get('href'))
 
-            chapter_item = manga_item.findNext('div', {'class': 'chapters-text'})
+            chapter_item = manga_item.findNext('div', {'class': 'chapters-text'}).findNext('strong')
             chapter_url = urljoin(self.base_url.geturl(), chapter_item.findNext('a').get('href'))
 
             urls[manga_url] = chapter_url
@@ -68,7 +68,7 @@ class MintMangaClient(MangaClient):
         return urls
 
     async def pictures_from_chapters(self, content: bytes, response: ClientResponse = None):
-        regex = rb"\['(.*?)','',\"(.*?)\",\d+,\d+\]"
+        regex = rb"\[['\"](.*?)['\"],['\"]['\"],['\"](.*?)['\"],\d+,\d+\]"
 
         images_url = [f"{a[0].decode()}{a[1].decode()}" for a in re.findall(regex, content)]
 

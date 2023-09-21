@@ -69,7 +69,7 @@ class ReadMangaClient(MangaClient):
         return urls
 
     async def pictures_from_chapters(self, content: bytes, response: ClientResponse = None):
-        regex = rb"\['(.*?)','',\"(.*?)\",\d+,\d+\]"
+        regex = rb"\['(.*?)','',\"(.*?)\?(.*?)\",\d+,\d+\]"
 
         images_url = [f"{a[0].decode()}{a[1].decode()}" for a in re.findall(regex, content)]
 

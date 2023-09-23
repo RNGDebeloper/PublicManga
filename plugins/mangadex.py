@@ -98,7 +98,7 @@ class MangaDexClient(MangaClient):
 
         return images_url
 
-    async def search(self, query: str = "", page: int = 1) -> List[MangaCard]:
+    async def search(self, query: str = "", page: int = 1) -> List[MangaDexMangaCard]:
         query = quote(query)
 
         request_url = f'{self.search_url}?limit=20&offset={(page - 1) * 20}&includes[]=cover_art&includes[]=author&includes[' \
@@ -109,7 +109,7 @@ class MangaDexClient(MangaClient):
 
         return self.mangas_from_page(content)
 
-    async def get_chapters(self, manga_card: MangaCard, page: int = 1, count: int = 10) -> List[MangaChapter]:
+    async def get_chapters(self, manga_card: MangaDexMangaCard, page: int = 1, count: int = 10) -> List[MangaDexMangaChapter]:
 
         request_url = f'{manga_card.url}' \
                       f'&limit={count}&offset={(page - 1) * count}&includes[' \
@@ -121,8 +121,8 @@ class MangaDexClient(MangaClient):
 
         return self.chapters_from_page(content, manga_card)
 
-    async def iter_chapters(self, manga_url: str, manga_name) -> AsyncIterable[MangaChapter]:
-        manga = MangaCard(self, manga_name, manga_url, '')
+    async def iter_chapters(self, manga_url: str, manga_name) -> AsyncIterable[MangaDexMangaChapter]:
+        manga = MangaDexMangaCard(self, manga_name, manga_url, '', '')
         page = 1
         while page > 0:
             chapters = await self.get_chapters(manga_card=manga, page=page, count=500)

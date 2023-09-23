@@ -46,7 +46,7 @@ class MangaBuddyClient(MangaClient):
 
         return mangas
 
-    def chapters_from_page(self, page: bytes, manga: MangaCard = None):
+    def chapters_from_page(self, page: bytes, manga: MangaBuddyCard = None):
         bs = BeautifulSoup(page, "html.parser")
 
         ul = bs.find('ul', {'id': 'chapter-list'})
@@ -93,7 +93,7 @@ class MangaBuddyClient(MangaClient):
 
         return images_url
 
-    async def search(self, query: str = "", page: int = 1) -> List[MangaCard]:
+    async def search(self, query: str = "", page: int = 1) -> List[MangaBuddyCard]:
         request_url = self.search_url
 
         if query:
@@ -103,7 +103,7 @@ class MangaBuddyClient(MangaClient):
 
         return self.mangas_from_page(content)[(page - 1) * 20:page * 20]
 
-    async def get_chapters(self, manga_card: MangaCard, page: int = 1) -> List[MangaChapter]:
+    async def get_chapters(self, manga_card: MangaBuddyCard, page: int = 1) -> List[MangaChapter]:
 
         request_url = f'{manga_card.url}'
 
@@ -112,7 +112,7 @@ class MangaBuddyClient(MangaClient):
         return self.chapters_from_page(content, manga_card)[(page - 1) * 20:page * 20]
 
     async def iter_chapters(self, manga_url: str, manga_name) -> AsyncIterable[MangaChapter]:
-        manga_card = MangaCard(self, manga_name, manga_url, '')
+        manga_card = MangaBuddyCard(self, manga_name, manga_url, '', '')
 
         request_url = f'{manga_card.url}'
 
@@ -136,7 +136,7 @@ class MangaBuddyClient(MangaClient):
 
         return updated, not_updated
 
-    async def get_cover(self, manga_card: MangaCard, *args, **kwargs):
+    async def get_cover(self, manga_card: MangaBuddyCard, *args, **kwargs):
         headers = {**self.pre_headers, 'Referer': self.base_url.geturl()}
         return await super(MangaBuddyClient, self).get_cover(manga_card, *args, headers=headers, **kwargs)
 

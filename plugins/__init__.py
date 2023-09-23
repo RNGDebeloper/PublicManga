@@ -17,3 +17,4 @@ from .asurascans import AsuraScansClient
 from .ninemanga import NineMangaClient
 from .readmanga import ReadMangaClient
 from .mintmanga import MintMangaClient
+from .desume import DesuMeClient

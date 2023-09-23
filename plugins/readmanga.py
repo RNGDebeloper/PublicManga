@@ -13,7 +13,7 @@ from plugins.client import MangaClient, MangaCard, MangaChapter, LastChapter
 class ReadMangaClient(MangaClient):
 
     base_url = urlparse('https://readmanga.live/')
-    search_url = urljoin(base_url.geturl(), '/search/suggestion')
+    search_url = urljoin(base_url.geturl(), 'search/suggestion')
     search_param = 'query'
 
     pre_headers = {
@@ -70,7 +70,7 @@ class ReadMangaClient(MangaClient):
     async def pictures_from_chapters(self, content: bytes, response: ClientResponse = None):
         regex = rb"\[['\"](.*?)['\"],['\"]['\"],['\"](.*?)\?(.*?)['\"],\d+,\d+\]"
 
-        images_url = [f"{a[0].decode()}{a[1].decode()}" for a in re.findall(regex, content)]
+        images_url = [f'{a[0].decode()}{a[1].decode()}' for a in re.findall(regex, content)]
 
         return images_url
 

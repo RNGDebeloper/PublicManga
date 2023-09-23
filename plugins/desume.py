@@ -92,7 +92,7 @@ class DesuMeClient(MangaClient):
         return self.chapters_from_page(content, manga_card)[(page - 1) * 20:page * 20]
 
     async def iter_chapters(self, manga_url: str, manga_name) -> AsyncIterable[DesuMeMangaChapter]:
-        manga_card = DesuMeMangaCard(self, manga_name, manga_url, '')
+        manga_card = DesuMeMangaCard(self, manga_name, manga_url, '', '')
 
         request_url = f'{manga_card.url}'
 
@@ -105,4 +105,7 @@ class DesuMeClient(MangaClient):
         return url.startswith(self.base_url.geturl())
 
     async def check_updated_urls(self, last_chapters: List[LastChapter]):
-        raise NotImplementedError
+        updated = []
+        not_updated = [lc.url for lc in last_chapters]
+
+        return updated, not_updated

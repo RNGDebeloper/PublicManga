@@ -105,7 +105,4 @@ class DesuMeClient(MangaClient):
         return url.startswith(self.base_url.geturl())
 
     async def check_updated_urls(self, last_chapters: List[LastChapter]):
-        updated = []
-        not_updated = [lc.url for lc in last_chapters]
-
-        return updated, not_updated
+        raise NotImplementedError

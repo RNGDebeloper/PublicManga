@@ -71,7 +71,6 @@ class DesuMeClient(MangaClient):
         pages = dt['response'].get('pages').get('list')
 
         images_url = [page.get('img') for page in pages]
-        print(images_url)
 
         return images_url
 

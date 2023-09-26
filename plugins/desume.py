@@ -34,7 +34,7 @@ class DesuMeClient(MangaClient):
     search_param = 'search'
 
     pre_headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0'
+        'User-Agent': 'MangaReader/1.0'
     }
 
     def __init__(self, *args, name='DesuMe', **kwargs):
@@ -71,6 +71,7 @@ class DesuMeClient(MangaClient):
         pages = dt['response'].get('pages').get('list')
 
         images_url = [page.get('img') for page in pages]
+        print(images_url)
 
         return images_url
 

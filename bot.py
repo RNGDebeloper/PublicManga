@@ -246,7 +246,7 @@ async def on_cancel_command(client: Client, message: Message):
 async def on_options_command(client: Client, message: Message):
     db = DB()
     user_options = await db.get(MangaOutput, str(message.from_user.id))
-    user_options = user_options.output if user_options else (1 << 30) - 1
+    user_options = user_options.output if user_options else (1 << 30) - 4
     buttons = get_buttons_for_options(user_options)
     return await message.reply("Select the desired output format.", reply_markup=buttons)
 
@@ -271,7 +271,7 @@ async def options_click(client, callback: CallbackQuery):
     db = DB()
     user_options = await db.get(MangaOutput, str(callback.from_user.id))
     if not user_options:
-        user_options = MangaOutput(user_id=str(callback.from_user.id), output=(2 << 30) - 1)
+        user_options = MangaOutput(user_id=str(callback.from_user.id), output=(2 << 30) - 4)
     option = int(callback.data.split('_')[-1])
     user_options.output ^= option
     buttons = get_buttons_for_options(user_options.output)
@@ -396,7 +396,7 @@ async def send_manga_chapter(client, data, chat_id):
 
     chapter_file = await db.get(ChapterFile, chapter.url)
     options = await db.get(MangaOutput, str(chat_id))
-    options = options.output if options else (1 << 30) - 1
+    options = options.output if options else (1 << 30) - 4
 
     error_caption = '\n'.join([
         f'{chapter.manga.name} - {chapter.name}',

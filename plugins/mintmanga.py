@@ -12,7 +12,7 @@ from plugins.client import MangaClient, MangaCard, MangaChapter, LastChapter
 
 class MintMangaClient(MangaClient):
 
-    base_url = urlparse('https://mintmanga.live/')
+    base_url = urlparse('https://23.mintmanga.live/')
     search_url = urljoin(base_url.geturl(), 'search/suggestion')
     search_param = 'query'
 
@@ -66,6 +66,17 @@ class MintMangaClient(MangaClient):
             urls[manga_url] = chapter_url
 
         return urls
+
+    async def set_pictures(self, manga_chapter: MangaChapter):
+        requests_url = manga_chapter.url
+
+        response = await self.get(f'{requests_url}?mtr=true')
+
+        content = await response.read()
+
+        manga_chapter.pictures = await self.pictures_from_chapters(content, response)
+
+        return manga_chapter
 
     async def pictures_from_chapters(self, content: bytes, response: ClientResponse = None):
         regex = rb"\[['\"](.*?)['\"],['\"]['\"],['\"](.*?)['\"],\d+,\d+\]"

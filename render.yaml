@@ -1,0 +1,11 @@
+services:
+  # A Docker web service
+  - type: web
+    name: PublicManga
+    env: docker
+    repo: https://github.com/RNGDebeloper/PublicManga.git
+    plan: free
+    branch: main
+    envVars:
+      - key: PORT
+        value: 8080

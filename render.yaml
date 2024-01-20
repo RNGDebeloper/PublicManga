@@ -3,7 +3,7 @@ services:
   - type: web
     name: PublicManga
     env: docker
-    repo: https://github.com/RNGDebeloper/PublicManga.git
+    repo: https://github.com/RNGDebeloper/PublicManga
     plan: free
     branch: main
     envVars:

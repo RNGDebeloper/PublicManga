@@ -14,10 +14,10 @@ from config import env_vars, dbname
 from img2cbz.core import fld2cbz
 from img2pdf.core import fld2pdf, fld2thumb
 from img2tph.core import img2tph
-from plugins import MangaClient, ManhuaKoClient, MangaCard, MangaChapter, ManhuaPlusClient, TMOClient, MangaDexClient, \
-    MangaSeeClient, MangasInClient, McReaderClient, MangaKakalotClient, ManganeloClient, ManganatoClient, \
-    KissMangaClient, MangatigreClient, MangaHasuClient, MangaBuddyClient, AsuraScansClient, NineMangaClient, \
-    ReadMangaClient, MintMangaClient, DesuMeClient
+from plugins import MangaClient, MangaCard, MangaChapter, MangaDexClient, \
+    MangaSeeClient, \
+    KissMangaClient, \
+    DesuMeClient
 import os
 
 from pyrogram import Client, filters
@@ -43,29 +43,13 @@ locks: Dict[int, asyncio.Lock] = dict()
 plugin_dicts: Dict[str, Dict[str, MangaClient]] = {
     "🇬🇧 EN": {
         "MangaDex": MangaDexClient(),
-        "Manhuaplus": ManhuaPlusClient(),
         "Mangasee": MangaSeeClient(),
-        "McReader": McReaderClient(),
-        "MagaKakalot": MangaKakalotClient(),
-        "Manganelo": ManganeloClient(),
-        "Manganato": ManganatoClient(),
         "KissManga": KissMangaClient(),
-        "MangaHasu": MangaHasuClient(),
-        "MangaBuddy": MangaBuddyClient(),
-        "AsuraScans": AsuraScansClient(),
-        "NineManga": NineMangaClient(),
     },
     "🇪🇸 ES": {
         "MangaDex": MangaDexClient(language=("es-la", "es")),
-        "ManhuaKo": ManhuaKoClient(),
-        "TMO": TMOClient(),
-        "Mangatigre": MangatigreClient(),
-        "NineManga": NineMangaClient(language='es'),
-        "MangasIn": MangasInClient(),
     },
     "🇷🇺 RU": {
-        "ReadManga": ReadMangaClient(),
-        "MintManga": MintMangaClient(),
         "DesuMe": DesuMeClient()
     }
 }
